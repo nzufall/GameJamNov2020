@@ -45,3 +45,8 @@ workspace "Tacitus"
           ROOT .. "contrib/SDL2/lib/x64/SDL2.lib",
           ROOT .. "contrib/SDL2/lib/x64/SDL2main.lib"
         }
+
+        filter { 'system:windows' }
+          postbuildcommands {
+            '{COPY} "' .. ROOT .. '/contrib/SDL2/lib/x64/SDL2.dll" "' .. ROOT .. 'build_%{cfg.buildcfg}_%{cfg.platform}"'
+          }
