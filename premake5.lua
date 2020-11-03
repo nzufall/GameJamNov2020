@@ -5,7 +5,7 @@ workspace "Tacitus"
     platforms { "x64" }
 
     filter { "system:windows", "action:vs*"}
-    flags         { "MultiProcessorCompile", "NoMinimalRebuild" }
+    flags  { "MultiProcessorCompile", "NoMinimalRebuild" }
 
 
     project "Tacitus"
@@ -15,6 +15,7 @@ workspace "Tacitus"
         targetname "tacitus"
 
         local SourceDir = ROOT .. "Source/";
+        local contrib = ROOT .. "contrib/"
         -- what files the visual studio project/makefile/etc should know about
         files
         { 
@@ -28,12 +29,19 @@ workspace "Tacitus"
           ["Source Files/*"] = { SourceDir .. "**.c", SourceDir .. "**.cxx", SourceDir .. "**.cpp" },
         }
 
-        libdirs
+        includedirs
         {
-          -- add dependency directories here
+          ROOT .. "contrib/SDL2/include"
         }
     
+        libdirs
+        {
+          ROOT .. "contrib/SDL/**"
+        }
+
         links
         {
-          -- add depedencies (libraries) here
+          ROOT .. "contrib/SDL2/lib/x64/SDL2.dll",
+          ROOT .. "contrib/SDL2/lib/x64/SDL2.lib",
+          ROOT .. "contrib/SDL2/lib/x64/SDL2main.lib"
         }
